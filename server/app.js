@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const session = require("express-session");
+const fs = require("fs");
 
 app.use(
     session({
@@ -18,6 +19,14 @@ const server = app.listen(3000, () => {
     console.log("Server started. Port 3000.");
 });
 
+let sql = require("./sql.js");
+
+fs.watchFile(__dirname + "/sql.js", (curr, prev) => {
+    console.log("sql 변경시 재시작 없이 반영되도록 함");
+    delete require.cache[require.resolve("./sql.js")];
+    sql = require("./sql.js");
+});
+
 const db = {
     database: "test",
     connectionLimit: 10,
@@ -31,8 +40,6 @@ const dbPool = require("mysql").createPool(db);
 app.post("/api/login", async (request, res) => {});
 
 app.post("/api/logout", async (request, res) => {});
-
-const sql = require("./sql.js");
 
 app.post("/api/:alias", async (request, res) => {
     try {
