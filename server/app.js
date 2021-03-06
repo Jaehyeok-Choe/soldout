@@ -30,7 +30,7 @@ fs.watchFile(__dirname + "/sql.js", (curr, prev) => {
 const db = {
     database: "test",
     connectionLimit: 10,
-    host: "192.168.0.3",
+    host: "192.168.178.165",
     user: "root",
     password: "mariadb",
 };

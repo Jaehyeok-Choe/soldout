@@ -1,4 +1,12 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
 
-createApp(App).mount('#app')
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import mixins from "./mixins";
+
+createApp(App)
+    .use(router)
+    .mixin(mixins)
+    .mount("#app");
